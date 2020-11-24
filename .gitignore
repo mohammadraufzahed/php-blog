@@ -38,3 +38,5 @@
 # Ignore all local history of files
 .history
 .ionide
+# Database file
+db.php
