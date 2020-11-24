@@ -1,7 +1,7 @@
 <?php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'mohammadraufzahed');
-define('DB_PASS', '09351515982');
+define('DB_PASS', '');
 define('DB_NAME', 'blog');
 // Connect to the database with PDO
 try {
