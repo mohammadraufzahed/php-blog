@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
+$db = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
