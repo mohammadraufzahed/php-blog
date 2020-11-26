@@ -142,3 +142,10 @@ fabric.properties
 .ionide
 # Database file
 includes/db.php
+.idea/codeStyles/codeStyleConfig.xml
+.idea/dataSources.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/modules.xml
+.idea/php-blog.iml
+.idea/sqldialects.xml
+.idea/vcs.xml

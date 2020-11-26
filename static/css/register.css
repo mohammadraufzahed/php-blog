@@ -1,0 +1,18 @@
+body {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#errors {
+  background-color: red;
+  padding: 0.4rem;
+  border-radius: 0.4em;
+  color: white;
+}
+#signup_form {
+  width: max-content;
+  margin: auto;
+}
+#signup_form .not_valid {
+  border-color: red;
+}
