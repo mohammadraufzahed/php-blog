@@ -31,11 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user_id = $account[0];
                 $user_name = $account[1];
                 $user_password_hash = $account[2];
+                $user_is_admin = ($account[3] === 'Y') ? true : false;
                 if (password_verify($password, $user_password_hash)) {
                     session_start();
                     $_SESSION["loggedin"] = true;
                     $_SESSION["id"] = $user_id;
                     $_SESSION["username"] = $user_name;
+                    $_SESSION['isAdmin'] = $user_is_admin;
                     header("location: index.php");
                 } else {
                     // Return a error if password doesnot match
