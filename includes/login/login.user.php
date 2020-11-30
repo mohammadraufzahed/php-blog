@@ -1,12 +1,13 @@
 <?php
 // Include Database
-include "db.php";
+include '../db.php';
 session_start();
 // Initial a variables
 $username = "";
 $username_err = "";
 $password = "";
 $password_err = "";
+// Check the request method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate the username to be not empty
     if (empty(trim($_POST["username"]))) {
@@ -28,10 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($accounts->rowCount() > 0) {
             foreach ($accounts as $account) {
                 // Get the user infos
-                $user_id = $account[0];
-                $user_name = $account[1];
-                $user_password_hash = $account[2];
-                $user_is_admin = ($account[3] === 'Y') ? true : false;
+                $user_id = $account['id'];
+                $user_name = $account['username'];
+                $user_password_hash = $account['password'];
+                $user_is_admin = ($account['is_admin'] == "Y") ? "true" : "false";
                 if (password_verify($password, $user_password_hash)) {
                     session_start();
                     $_SESSION["loggedin"] = true;
@@ -45,5 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         }
+    } else {
+        $username_err = "Username not found";
     }
 }
+$db = null;

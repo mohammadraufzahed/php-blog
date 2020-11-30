@@ -1,19 +1,20 @@
 <?php
-include "includes/register.inc.php";
+include "includes/db.php";
+include "includes/register/register.user.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <link rel="stylesheet" href="static/css/main.css">
-    <link rel="stylesheet" href="static/css/register.css">
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <!-- Import bootstrap -->
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-</head>
+    <head>
+        <link rel="stylesheet" href="static/css/main.css">
+        <link rel="stylesheet" href="static/css/register.css">
+        <meta charset="UTF-8">
+        <title>Sign Up</title>
+        <!-- Import bootstrap -->
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    </head>
 
-<body class="text-center">
+    <body class="text-center">
     <div class="container col-12">
         <?php
         session_start();
@@ -45,18 +46,25 @@ include "includes/register.inc.php";
 
                 ?>
             </div>
-            <form class="mt-3 col-12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" id="signup_form" method="POST">
+            <form class="mt-3 col-12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" id="signup_form"
+                  method="POST">
                 <div class="input-group mb-3 col-12">
                     <span class="input-group-text" id="user-opt">Username: </span>
-                    <input class="form-control <?php echo (!empty($username_err)) ? "not_valid" : "" ?>" type="text" placeholder="Username" aria-placeholder="Username" aria-describedby="user-opt" name="username">
+                    <input class="form-control <?php echo (!empty($username_err)) ? "not_valid" : "" ?>" type="text"
+                           placeholder="Username" aria-placeholder="Username" aria-describedby="user-opt"
+                           name="username">
                 </div>
                 <div class="input-group mb-3 col-12">
                     <span class="input-group-text" id="password-opt">Password: </span>
-                    <input class="form-control <?php echo (!empty($password_err)) ? "not_valid" : "" ?>" type="password" placeholder="Password" aria-placeholder="Password" aria-describedby="password-opt" name="password">
+                    <input class="form-control <?php echo (!empty($password_err)) ? "not_valid" : "" ?>" type="password"
+                           placeholder="Password" aria-placeholder="Password" aria-describedby="password-opt"
+                           name="password">
                 </div>
                 <div class="input-group mb-3 col-12">
                     <span class="input-group-text" id="passcon-opt">Confirm Password: </span>
-                    <input class="form-control <?php echo (!empty($password_confirm_err)) ? "not_valid" : "" ?>" type="password" placeholder="Confirm Password" aria-placeholder="Confirm Password" aria-describedby="passcon-opt" name="passwordC">
+                    <input class="form-control <?php echo (!empty($password_confirm_err)) ? "not_valid" : "" ?>"
+                           type="password" placeholder="Confirm Password" aria-placeholder="Confirm Password"
+                           aria-describedby="passcon-opt" name="passwordC">
                 </div>
                 <button class="btn btn-primary" type="submit">Sign up</button>
             </form>
@@ -64,6 +72,7 @@ include "includes/register.inc.php";
     </div>
     <!-- Import bootstrap js -->
     <script src="static/js/bootstrap.bundle.min.js"></script>
-</body>
+    </body>
 
-</html>
+    </html>
+<?php $db = null; ?>

@@ -1,5 +1,6 @@
 <?php
-include "includes/login.inc.php"
+include "includes/db.php";
+include "includes/login/login.user.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +25,20 @@ include "includes/login.inc.php"
         <?php } else { ?>
 
             <h1 class="h1 mb-3 fw-normal">Login</h1>
-            <div class="<?php echo (!empty(trim($password_err)) || !empty(trim($username_err))) ? "errors" : ""; ?>">
-
+            <div class="<?php echo (!empty(trim($password_err)) || !empty(trim($username_err))) ? "card text-white bg-danger mb-3 show" : ""; ?>" style="display: none;">
+                <div class="card-header">Errors</div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <?php
+                        if (!empty(trim($password_err))) {
+                            echo "<p>$password_err</p>";
+                        }
+                        if (!empty(trim($username_err))) {
+                            echo "<p>$username_err</p>";
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
             <form id="login_form" class="lg" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
                 <div class="input-group mb-3 col-12">
@@ -50,3 +63,4 @@ include "includes/login.inc.php"
 </body>
 
 </html>
+<?php $db = null; ?>

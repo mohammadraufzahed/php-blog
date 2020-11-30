@@ -1,24 +1,25 @@
 <?php
 include "includes/db.php";
-include "includes/getposts.inc.php";
+include "includes/post/getAll.post.php";
 include "includes/getBlogInfo.inc.php";
 
-$posts = getPosts();
+$posts = getAllPosts();
 ?>
-<!doctype html>
-<html lang="en">
+    <!doctype html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?php echo $blogTitle ?></title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title><?php echo $blogTitle ?></title>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    </head>
 
-<body>
+    <body>
     <header>
         <?php include "includes/nav.inc.php" ?>
     </header>
@@ -35,13 +36,13 @@ $posts = getPosts();
                         $postAuthor = $authorName[0];
                     }
                     if ($post['published'] == 'Y') {
-                ?>
+                        ?>
                         <div class="mt-4 container card text-center text-dark bg-light">
                             <h5 class="card-title mt-3"><?php echo $post['title']; ?></h5>
                             <span class="card-subtitle fw-lighters">Created at <?php echo $post['created_at']; ?></span>
                             <span class="card-text border m-4 p-2"><?php echo $post["body"]; ?></span>
                         </div>
-                <?php }
+                    <?php }
                 }
                 ?>
 
@@ -55,6 +56,7 @@ $posts = getPosts();
         </div>
     </main>
     <script src="static/js/bootstrap.bundle.min.js"></script>
-</body>
+    </body>
 
-</html>
+    </html>
+<?php $db = null; ?>

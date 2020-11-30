@@ -1,6 +1,6 @@
 <?php
 // Include Database
-include "db.php";
+include "../db.php";
 // Initial the variables
 $username = "";
 $password = "";

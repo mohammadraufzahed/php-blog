@@ -1,7 +1,7 @@
 <?php
 include "./db.php";
 
-function getPosts()
+function getAllPosts()
 {
     global $db;
     $posts = array();
