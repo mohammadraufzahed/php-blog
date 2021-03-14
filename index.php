@@ -16,7 +16,7 @@
 <div class="container-fluid h-100">
     <div class="row h-100 mt-2">
         <div class="col-lg-8">
-            <div class="post bg-dark text-white text-center h-auto">
+            <div class="posts bg-dark text-white text-center h-auto mb-3">
                 <img class="img-fluid post-image" src="static/img/post.jpg" alt="Post image">
                 <h3 class="post-title pt-3">New Post</h3>
                 <p class="pt-3 pb-3 post-text text-start m-auto">Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -27,14 +27,14 @@
                     sollicitudin. Proin sit amet ante viverra, molestie sem sit amet, pulvinar mauris. Ut consectetur
                     massa dui, non faucibus orci venenatis non. Praesent quis lacus placerat, elementum felis ut,
                     fermentum ex. In in luctus augue. Pellentesque gravida at elit id egestas. Cras nec sem scelerisque,
-                    molestie lectus a, sollicitudin massa. <a class="link-primary text-end" href="#">Read more</a>
+                    molestie lectus a, sollicitudin massa. <a class="link-primary text-end" href="/post.php">Read more</a>
                 </p>
             </div>
         </div>
         <!--Right-->
         <div class="col-lg-4">
             <div class="h-auto w-100">
-                <div class="card bg-dark text-white">
+                <div class="card bg-dark text-white mb-3">
                     <img class="card-img-top" src="static/img/profile.jpg" alt="Profile Image">
                     <div class="card-body text-center">
                         <h5 class="card-title">Author</h5>
