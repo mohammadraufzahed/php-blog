@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav d-flex ms-auto justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="/register.php">Register</a>
                 </li>
                 <li class="nav-item">
                 </li>

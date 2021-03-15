@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <!-- Css Files-->
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/style.css">
@@ -19,7 +19,7 @@
                 <div class="card bg-dark text-white text-center h-auto m-auto">
                     <img src="static/img/login.jpg" alt="Login picture" class="card-img-top img-fluid">
                     <div class="card-body">
-                        <h5 class="card-title">Login</h5>
+                        <h5 class="card-title">Register</h5>
                         <p class="card-text">
                         <form class="text-start" action="/login.php" method="POST">
                             <div class="mb-3">
@@ -30,8 +30,12 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
+                            <div class="mb-3">
+                                <label for="passwordConfirm" class="form-label">Confirm password</label>
+                                <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
+                            </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-light">Login</button>
+                                <button type="submit" class="btn btn-light">Register</button>
                             </div>
                         </form>
                         </p>
