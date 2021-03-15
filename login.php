@@ -15,7 +15,7 @@
     <?php include("nav.php"); ?>
     <div class="container-fluid">
         <div class="row mt-4">
-            <div class="col-lg-6 m-auto">
+            <div class="col-lg-4 m-auto">
                 <div class="card bg-dark text-white text-center h-auto m-auto">
                     <img src="static/img/login.jpg" alt="Login picture" class="card-img-top img-fluid">
                     <div class="card-body">
