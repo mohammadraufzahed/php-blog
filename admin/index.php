@@ -42,7 +42,7 @@
             </nav>
 
             <div class="container-fluid text-center">
-
+                <?php include("loadPage.php"); ?>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
