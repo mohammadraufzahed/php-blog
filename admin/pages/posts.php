@@ -1,5 +1,5 @@
 <div class="d-flex w-100 justify-content-end">
-    <a href="#"><button class="btn btn-primary mt-3 mb-3">Add Post</button></a>
+    <a href="/admin/newPost"><button class="btn btn-primary mt-3 mb-3">Add Post</button></a>
 </div>
 <table class="table">
     <thead>
