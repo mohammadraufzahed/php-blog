@@ -1,3 +1,6 @@
+<?php
+include("include/blogInfo.php")
+?>
 <!doctype html>
 <html lang="en">
 
@@ -8,7 +11,7 @@
     <!--Load the css-->
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <title>Blog</title>
+    <title><?php echo $blogTitle; ?></title>
 </head>
 
 <body class="bg-light">
@@ -38,8 +41,8 @@
                     <div class="card bg-dark text-white mb-3">
                         <img class="card-img-top" src="static/img/profile.jpg" alt="Profile Image">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Author</h5>
-                            <p class="card-text">Author info</p>
+                            <h5 class="card-title"><?php echo $blogAuthor; ?></h5>
+                            <p class="card-text"><?php echo $blogAuthorInfo ?></p>
                         </div>
                     </div>
                 </div>
