@@ -22,7 +22,7 @@
 
     <div class="d-flex" id="wrapper">
         <?php
-        include("sidebar.php");
+        include(__DIR__ . "/sidebar.php");
         ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">

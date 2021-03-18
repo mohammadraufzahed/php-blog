@@ -1,5 +1,5 @@
 <?php
-require("include/config.php");
+require(__DIR__ . "/config.php");
 $blogTitle = "";
 $blogAuthor = "";
 $blogAuthorInfo = "";

@@ -1,6 +1,6 @@
 <?php
-include("include/config.php");
-include("include/posts/getPosts.php")
+include(__DIR__ . "/../include/config.php");
+include(__DIR__ . "/../include/posts/getPosts.php")
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ include("include/posts/getPosts.php")
 
     <div class="d-flex" id="wrapper">
         <?php
-        include("sidebar.php");
+        include(__DIR__ . "/sidebar.php");
         ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">

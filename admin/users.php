@@ -1,5 +1,5 @@
 <?php
-include 'admin/include/users/getUsers.php';
+include __DIR__ . "/include/users/getUsers.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,16 +46,17 @@ include 'admin/include/users/getUsers.php';
                         <th class="col">Options</th>
                     </thead>
                     <tbody>
-                        <tr class="">
-                            <th scope="row">1</th>
-                            <td>mohammadraufzahed</td>
-                            <td>mohammadraufzahed@protonmail.com</td>
-                            <td>
-                                <a href="#"><button class="btn btn-success me-3">Edit</button></a>
-                                <a href="#"><button class="btn btn-danger">Delete</button></a>
-                            </td>
-                        </tr>
-
+                        <?php foreach ($users as $key => $value) { ?>
+                            <tr class="">
+                                <th scope="row"><?php echo $value["id"]; ?></th>
+                                <td><?php echo $value["username"]; ?></td>
+                                <td><?php echo $value["email"]; ?></td>
+                                <td>
+                                    <a href="#"><button class="btn btn-success me-3">Edit</button></a>
+                                    <a href="#"><button class="btn btn-danger">Delete</button></a>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

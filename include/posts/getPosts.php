@@ -1,5 +1,5 @@
 <?php
-require "include/config.php";
+include(__DIR__ . "/../include/config.php");
 $posts = $conn->query("SELECT `id`, `title`, `body`, `published` FROM `posts`");
 function printPosts($postsArr)
 {
