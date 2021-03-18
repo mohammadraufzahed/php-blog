@@ -1,3 +1,6 @@
+<?php
+include 'admin/include/users/getUsers.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard | Users</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -32,20 +35,28 @@
             </nav>
 
             <div class="container-fluid text-center">
-                <h1>Dashboard</h1>
-                <table class="table table-dark table-striped w-25 m-auto text-start">
-                    <tr>
-                        <th>Total Posts:</th>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <th>Total Users:</th>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <th>Total Views:</th>
-                        <td>100</td>
-                    </tr>
+                <div class="d-flex w-100 justify-content-end">
+                    <a href="#"><button class="btn btn-primary mt-3 mb-3">Add Post</button></a>
+                </div>
+                <table class="table">
+                    <thead>
+                        <th class="col">ID</th>
+                        <th class="col">Username</th>
+                        <th class="col">Email</th>
+                        <th class="col">Options</th>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <th scope="row">1</th>
+                            <td>mohammadraufzahed</td>
+                            <td>mohammadraufzahed@protonmail.com</td>
+                            <td>
+                                <a href="#"><button class="btn btn-success me-3">Edit</button></a>
+                                <a href="#"><button class="btn btn-danger">Delete</button></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
                 </table>
             </div>
         </div>

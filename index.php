@@ -1,6 +1,6 @@
 <?php
-include_once "include/blogInfo.php";
-include_once "include/posts/getPosts.php";
+include("include/blogInfo.php");
+include("include/posts/getPosts.php");
 ?>
 <!doctype html>
 <html lang="en">

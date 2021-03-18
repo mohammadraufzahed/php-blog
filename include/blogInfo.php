@@ -1,8 +1,8 @@
 <?php
-require_once "config.php";
-$blogTitle;
-$blogAuthor;
-$blogAuthorInfo;
+require("include/config.php");
+$blogTitle = "";
+$blogAuthor = "";
+$blogAuthorInfo = "";
 $dbArray = $conn->query("SELECT `blogTitle`, `blogAuthor`, `blogAuthorInfo` FROM `settings`");
 foreach ($dbArray as $value) {
     $blogTitle = $value["blogTitle"];
