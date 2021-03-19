@@ -1,3 +1,6 @@
+<?php
+include(__DIR__ . "/include/totalCalculator.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,11 +39,11 @@
                 <table class="table table-dark table-striped w-25 m-auto text-start">
                     <tr>
                         <th>Total Posts:</th>
-                        <td>10</td>
+                        <td><?php echo $totalPosts; ?></td>
                     </tr>
                     <tr>
                         <th>Total Users:</th>
-                        <td>5</td>
+                        <td><?php echo $totalUsers; ?></td>
                     </tr>
                     <tr>
                         <th>Total Views:</th>
