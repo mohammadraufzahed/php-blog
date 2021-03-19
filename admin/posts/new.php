@@ -1,3 +1,6 @@
+<?php
+require(__DIR__ . "/../include/posts/addPost.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +38,7 @@
                 <form class="w-75 m-auto mt-5" action="#" method="POST">
                     <div class="mb-3">
                         <label for="postName" class="form-label">Post name</label>
-                        <input type="text" class="form-control" id="blogName" placeholder="Blog Name" name="blogName">
+                        <input type="text" class="form-control" id="postName" placeholder="Post title" name="postName">
                     </div>
                     <div class="mb-3">
                         <select class="form-select" aria-label="Default select example" name="publishIt">
