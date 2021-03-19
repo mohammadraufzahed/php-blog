@@ -35,9 +35,6 @@ include __DIR__ . "/include/users/getUsers.php";
             </nav>
 
             <div class="container-fluid text-center">
-                <div class="d-flex w-100 justify-content-end">
-                    <a href="#"><button class="btn btn-primary mt-3 mb-3">Add Post</button></a>
-                </div>
                 <table class="table">
                     <thead>
                         <th class="col">ID</th>
