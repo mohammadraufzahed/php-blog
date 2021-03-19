@@ -54,7 +54,7 @@ include(__DIR__ . "/../include/posts/getPosts.php")
                                 <th scope="row"><?php echo $value["id"] ?></th>
                                 <td><?php echo $value["title"] ?></td>
                                 <td>
-                                    <a href="#"><button class="btn btn-success me-3">Edit</button></a>
+                                    <a href="/admin/posts/edit.php?id=<?php echo $value["id"]; ?>"><button class="btn btn-success me-3">Edit</button></a>
                                     <a href="#"><button class="btn btn-primary me-3">View</button></a>
                                     <a href="/admin/include/posts/deletePost.php?id=<?php echo $value["id"] ?>"><button class="btn btn-danger">Delete</button></a>
                                 </td>
