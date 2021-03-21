@@ -61,8 +61,6 @@ include(__DIR__ . "/../include/posts/getPosts.php")
                             </tr>
                         <?php }
                         ?>
-
-
                     </tbody>
                 </table>
             </div>
