@@ -1,3 +1,6 @@
+<?php
+require(__DIR__ . "/admin/include/permission.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 

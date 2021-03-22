@@ -1,3 +1,6 @@
+<?php
+require(__DIR__ . "/include/permission.php");
+?>
 <!-- Sidebar -->
 <div class="bg-dark border-right text-white" id="sidebar-wrapper">
     <div class="sidebar-heading">Start Bootstrap </div>

@@ -1,5 +1,6 @@
 <?php
 include(__DIR__ . "/include/blogInfo.php");
+session_start();
 ?>
 <!--Navabr Start-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,14 +11,30 @@ include(__DIR__ . "/include/blogInfo.php");
 
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav d-flex ms-auto justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="register.php">Register</a>
-                </li>
-                <li class="nav-item">
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php">Login</a>
-                </li>
+                <?php
+                if (!$_SESSION["isLogged"]) {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.php">Register</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                <?php
+                } elseif ($_SESSION["isAdmin"] == 'Y') {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Dashboard</a>
+                    </li>
+                <?php
+                }
+                if ($_SESSION['isLogged'] == 'Y') { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     </div>
