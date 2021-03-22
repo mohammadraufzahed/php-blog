@@ -11,3 +11,4 @@ $_SESSION["isLogged"] = true;
 $_SESSION["username"] = $loginData["username"];
 $_SESSION["id"] = $userData[0];
 $_SESSION["isAdmin"] = $userData[1];
+header("location: /");
