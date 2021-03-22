@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . "/include/totalCalculator.php");
+include __DIR__ . "/include/users/getUsers.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ include(__DIR__ . "/include/totalCalculator.php");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard | Users</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@ include(__DIR__ . "/include/totalCalculator.php");
 
     <div class="d-flex" id="wrapper">
         <?php
-        include(__DIR__ . "/sidebar.php");
+        include("sidebar.php");
         ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -35,20 +35,26 @@ include(__DIR__ . "/include/totalCalculator.php");
             </nav>
 
             <div class="container-fluid text-center">
-                <h1>Dashboard</h1>
-                <table class="table table-dark table-striped w-25 m-auto text-start">
-                    <tr>
-                        <th>Total Posts:</th>
-                        <td><?php echo $totalPosts; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Total Users:</th>
-                        <td><?php echo $totalUsers; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Total Views:</th>
-                        <td>100</td>
-                    </tr>
+                <table class="table">
+                    <thead>
+                        <th class="col">ID</th>
+                        <th class="col">Username</th>
+                        <th class="col">Email</th>
+                        <th class="col">Options</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $key => $value) { ?>
+                            <tr class="">
+                                <th scope="row"><?php echo $value["id"]; ?></th>
+                                <td><?php echo $value["username"]; ?></td>
+                                <td><?php echo $value["email"]; ?></td>
+                                <td>
+                                    <a href="#"><button class="btn btn-success me-3">Edit</button></a>
+                                    <a href="#"><button class="btn btn-danger">Delete</button></a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
                 </table>
             </div>
         </div>

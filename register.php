@@ -1,78 +1,56 @@
 <?php
-include "includes/db.php";
-include "includes/register/register.user.php";
+require(__DIR__ . "/admin/include/permission.php");
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <link rel="stylesheet" href="static/css/main.css">
-        <link rel="stylesheet" href="static/css/register.css">
-        <meta charset="UTF-8">
-        <title>Sign Up</title>
-        <!-- Import bootstrap -->
-        <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Css Files-->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
 
-    <body class="text-center">
-    <div class="container col-12">
-        <?php
-        session_start();
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) { ?>
-            <h1 class="h1"> You are logged in</h1>
-            <a class="link-primary" href="/index.php">Go Home</a>
-        <?php } else { ?>
-            <h1 id="header">Sign Up</h1>
-            <div class="<?php echo (!empty(trim($username_err)) or !empty(trim($password_err)) or !empty(trim($password_confirm_err))) ? "card text-white bg-danger mb-3" : "" ?>">
-                <?php
-                if (!empty(trim($username_err)) or !empty(trim($password_err)) or !empty(trim($password_confirm_err))) { ?>
-                    <div class='card-header'>Error</div>
+<body>
+    <?php include("nav.php"); ?>
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-lg-4 m-auto">
+                <div class="card bg-dark text-white text-center w-75 h-auto m-auto">
+                    <img src="static/img/login.jpg" alt="Login picture" class="card-img-top img-fluid">
                     <div class="card-body">
-                        <h5 class="card-title">An error happend</h5>
-                        <?php
-                        if (!empty(trim($username_err))) {
-                            echo "<p class='card-text'>$username_err</p>";
-                        }
-                        if (!empty(trim($password_err))) {
-                            echo "<p class='card-text'>$password_err</p>";
-                        }
-                        if (!empty(trim($password_confirm_err))) {
-                            echo "<p class='card-text'>$password_confirm_err</p>";
-                        }
-                        ?>
+                        <h5 class="card-title">Register</h5>
+                        <p class="card-text">
+                        <form class="text-start" action="/include/register/doRegister.php" method="POST">
+                            <div class="mb-1">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordConfirm" class="form-label">Confirm password</label>
+                                <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
+                            </div>
+                            <div class="text-center pt-1">
+                                <button type="submit" class="btn btn-light">Register</button>
+                            </div>
+                        </form>
+                        </p>
                     </div>
-                <?php }
-
-
-                ?>
+                </div>
             </div>
-            <form class="mt-3 col-12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" id="signup_form"
-                  method="POST">
-                <div class="input-group mb-3 col-12">
-                    <span class="input-group-text" id="user-opt">Username: </span>
-                    <input class="form-control <?php echo (!empty($username_err)) ? "not_valid" : "" ?>" type="text"
-                           placeholder="Username" aria-placeholder="Username" aria-describedby="user-opt"
-                           name="username">
-                </div>
-                <div class="input-group mb-3 col-12">
-                    <span class="input-group-text" id="password-opt">Password: </span>
-                    <input class="form-control <?php echo (!empty($password_err)) ? "not_valid" : "" ?>" type="password"
-                           placeholder="Password" aria-placeholder="Password" aria-describedby="password-opt"
-                           name="password">
-                </div>
-                <div class="input-group mb-3 col-12">
-                    <span class="input-group-text" id="passcon-opt">Confirm Password: </span>
-                    <input class="form-control <?php echo (!empty($password_confirm_err)) ? "not_valid" : "" ?>"
-                           type="password" placeholder="Confirm Password" aria-placeholder="Confirm Password"
-                           aria-describedby="passcon-opt" name="passwordC">
-                </div>
-                <button class="btn btn-primary" type="submit">Sign up</button>
-            </form>
-        <?php } ?>
+        </div>
     </div>
-    <!-- Import bootstrap js -->
-    <script src="static/js/bootstrap.bundle.min.js"></script>
-    </body>
+    <!--Load The js files-->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+</body>
 
-    </html>
-<?php $db = null; ?>
+</html>

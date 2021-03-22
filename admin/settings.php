@@ -1,5 +1,6 @@
 <?php
-include(__DIR__ . "/include/totalCalculator.php");
+include(__DIR__ . "/include/settings/updateSettings.php");
+include(__DIR__ . "/include/settings/getSettings.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@ include(__DIR__ . "/include/totalCalculator.php");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard | Settings</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -35,21 +36,21 @@ include(__DIR__ . "/include/totalCalculator.php");
             </nav>
 
             <div class="container-fluid text-center">
-                <h1>Dashboard</h1>
-                <table class="table table-dark table-striped w-25 m-auto text-start">
-                    <tr>
-                        <th>Total Posts:</th>
-                        <td><?php echo $totalPosts; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Total Users:</th>
-                        <td><?php echo $totalUsers; ?></td>
-                    </tr>
-                    <tr>
-                        <th>Total Views:</th>
-                        <td>100</td>
-                    </tr>
-                </table>
+                <form class="w-50 m-auto mt-5" action="#" method="POST">
+                    <div class="mb-3">
+                        <label for="blogName" class="form-label">Blog name</label>
+                        <input type="text" class="form-control" id="blogName" value="<?php echo $blogTitle ?>" name="blogName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="authorName" class="form-label">Author name</label>
+                        <input type="text" class="form-control" id="authorName" value="<?php echo $blogAuthor ?>" name="authorName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="authorInfo" class="form-label">Author info</label>
+                        <textarea class="form-control" id="authorInfo" rows="3" name="authorInfo"><?php echo $blogAuthorInfo ?></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
