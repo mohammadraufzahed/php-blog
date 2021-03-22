@@ -8,8 +8,11 @@ function verifyDataStandard($data)
         die("Please enter your username.");
     }
     // Check the username not contain useless symbols
-    if (strpos($data["username"], "~") == true || strpos($data["username"], "@") == true || strpos($data["username"], "!") == true || strpos($data["username"], "#") == true ||  strpos($data["username"], "$") == true || strpos($data["username"], "%") == true ||  strpos($data["username"], "^") == true ||  strpos($data["username"], "&") == true || strpos($data["username"], "*") == true || strpos($data["username"], "_") == true || strpos($data["username"], "-") == true || strpos($data["username"], ".") == true) {
-        die("Your username must not contain(~!@#$%^&*_+.)");
+    $banedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
+    for ($i = 0; $i <= (sizeof($banedSymbols) - 1); $i++) {
+        if(strpos($data["username"], $banedSymbols[$i]) == true){
+            die("Your username must not contain(~!@#$%^&*_+.)");
+        }
     }
     // Check the password and passwordConfirm not empty
     if (empty(trim($data["password"])) || empty(trim($data["passwordConfirm"]))) {
@@ -20,6 +23,7 @@ function verifyDataStandard($data)
         die("Password and Password Confirm are not equal.");
     }
 }
+
 // Check the database if username exists or not
 function verifyDataWithDatabase($data, $conn)
 {
