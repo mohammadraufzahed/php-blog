@@ -35,6 +35,9 @@ include __DIR__ . "/include/users/getUsers.php";
             </nav>
 
             <div class="container-fluid text-center">
+                <div class="d-flex justify-content-end w-100 mt-3">
+                    <a href="/admin/users/addUser.php"><button class="btn btn-success">Add user</button></a>
+                </div>
                 <table class="table">
                     <thead>
                         <th class="col">ID</th>
@@ -50,7 +53,7 @@ include __DIR__ . "/include/users/getUsers.php";
                                 <td><?php echo $value["email"]; ?></td>
                                 <td>
                                     <a href="#"><button class="btn btn-success me-3">Edit</button></a>
-                                    <a href="#"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="/admin/users/deleteUser.php?id=<?php echo $value["id"]; ?>"><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                         <?php } ?>

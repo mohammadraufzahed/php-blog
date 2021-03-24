@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/admin/include/permission.php");
+require(__DIR__ . "/include/permission.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
