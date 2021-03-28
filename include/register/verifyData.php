@@ -33,13 +33,8 @@ function verifyDataWithDatabase($data, $conn)
     $query = $conn->prepare($sql);
     $query->execute();
     $userFound = $query->fetchAll(PDO::FETCH_OBJ);
-    $userFoundCount = 0;
-    // Count the users found
-    foreach ($userFound as $key => $value) {
-        $userFoundCount++;
-    }
     // Check the user exists or not
-    if ($userFoundCount) {
+    if ($query->rowCount()) {
         die("User exists.");
     }
 }
