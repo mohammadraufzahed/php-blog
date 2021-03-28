@@ -1,4 +1,6 @@
 <?php
-include(__DIR__ . "/../../../include/config.php");
+require_once(__DIR__ . "/../../../include/config.php");
 
-$users = $conn->query("SELECT `id`, `username`, `email` FROM `users`");
+$users = $conn->prepare("SELECT `id`, `username`, `email` FROM `users`");
+$users->execute();
+$users = $users->fetchAll(PDO::FETCH_OBJ);

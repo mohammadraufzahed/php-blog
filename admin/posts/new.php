@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/../include/posts/addPost.php");
+require_once(__DIR__ . "/../include/posts/addPost.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

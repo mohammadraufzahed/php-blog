@@ -42,21 +42,21 @@ include(__DIR__ . "/../include/posts/getPosts.php")
                 </div>
                 <table class="table">
                     <thead>
-                        <th class="col">ID</th>
-                        <th class="col">Name</th>
-                        <th class="col">Options</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Options</th>
                     </thead>
                     <tbody>
                         <?php
                         foreach ($posts as $key => $value) {
                         ?>
                             <tr class="">
-                                <th scope="row"><?php echo $value["id"] ?></th>
-                                <td><?php echo $value["title"] ?></td>
+                                <th scope="row"><?php echo $value->id; ?></th>
+                                <td><?php echo $value->title; ?></td>
                                 <td>
-                                    <a href="/admin/posts/edit.php?id=<?php echo $value["id"]; ?>"><button class="btn btn-success me-3">Edit</button></a>
-                                    <a href="/post.php?id=<?php echo $value["id"] ?>" target="_blank"><button class="btn btn-primary me-3">View</button></a>
-                                    <a href="/admin/include/posts/deletePost.php?id=<?php echo $value["id"] ?>"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="/admin/posts/edit.php?id=<?php echo $value->id; ?>"><button class="btn btn-success me-3">Edit</button></a>
+                                    <a href="/post.php?id=<?php echo $value->id; ?>" target="_blank"><button class="btn btn-primary me-3">View</button></a>
+                                    <a href="/admin/include/posts/deletePost.php?id=<?php echo $value->id; ?>"><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                         <?php }

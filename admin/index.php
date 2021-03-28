@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . "/include/totalCalculator.php");
+require_once(__DIR__ . "/include/totalCalculator.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

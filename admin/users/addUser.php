@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/../include/posts/addPost.php");
+require_once(__DIR__ . "/../../include/register/doRegister.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ require(__DIR__ . "/../include/posts/addPost.php");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Dashboard | Add new post</title>
+    <title>Admin Dashboard | Add user</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../static/css/bootstrap.min.css" rel="stylesheet">

@@ -1,5 +1,4 @@
 <?php
-include(__DIR__ . "/../config.php");
 // Check data with some standards
 function verifyDataStandard($data)
 {
@@ -27,13 +26,19 @@ function verifyDataStandard($data)
 // Check the database if username exists or not
 function verifyDataWithDatabase($data, $conn)
 {
+	// Store needed data in variable
     $username = $data["username"];
+    // Send query to database
     $sql = "SELECT * FROM `users` WHERE username='$username'";
-    $userFound = $conn->query($sql);
+    $query = $conn->prepare($sql);
+    $query->execute();
+    $userFound = $query->fetchAll(PDO::FETCH_OBJ);
     $userFoundCount = 0;
+    // Count the users found
     foreach ($userFound as $key => $value) {
         $userFoundCount++;
     }
+    // Check the user exists or not
     if ($userFoundCount) {
         die("User exists.");
     }

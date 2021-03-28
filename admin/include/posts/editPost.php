@@ -1,28 +1,38 @@
 <?php
 require(__DIR__ . "/../../../include/config.php");
-$postId;
-$post = [];
+// Define the needed variables
+$postId = 0;
 $postTitle = "";
 $postPublished = "";
 $postBody = "";
+// Check the request method is get or not
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Save the received data
     $postId = $_GET['id'];
-    $post = $conn->query("SELECT `title`, `body`, `published` FROM posts WHERE id=$postId");
+    // Send query to database
+    $post = $conn->prepare("SELECT `title`, `body`, `published` FROM posts WHERE id=$postId");
+	$post->execute();
+    $post = $post->fetchAll(PDO::FETCH_OBJ);
     foreach ($post as $key => $value) {
-        $postTitle = $value["title"];
-        $postBody = $value["body"];
-        $postPublished = $value["published"];
+        $postTitle = $value->title;
+        $postBody = $value->body;
+        $postPublished = $value->published;
     };
 }
+// Check the request method is post or not
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Store the received data to variables
     $postId = $_POST["saveId"];
     $postTitle = $_POST["postName"];
     $postBody = $_POST["postBody"];
     $postPublished = ($_POST["publishIt"] == 1) ? 'Y' : 'N';
+    // Send update request to database
     $sql = "UPDATE `posts` SET `title`='$postTitle', `body`='$postBody', `published`='$postPublished' WHERE `id`=$postId";
-    if ($conn->exec($sql)) { ?>
+    $updatePost = $conn->prepare($sql);
+    // Check request executed successfully
+    if ($updatePost->execute()) { ?>
         <script>
-            alert("Post Deleted");
+            alert("Post Updated");
         </script>
 <?php
         header('location: /admin/posts.php');

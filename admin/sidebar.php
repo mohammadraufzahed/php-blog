@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/include/permission.php");
+require_once(__DIR__ . "/include/permission.php");
 ?>
 <!-- Sidebar -->
 <div class="bg-dark border-right text-white" id="sidebar-wrapper">

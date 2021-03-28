@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/include/users/getUsers.php";
+require_once(__DIR__ . "/include/users/getUsers.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,20 +40,20 @@ include __DIR__ . "/include/users/getUsers.php";
                 </div>
                 <table class="table">
                     <thead>
-                        <th class="col">ID</th>
-                        <th class="col">Username</th>
-                        <th class="col">Email</th>
-                        <th class="col">Options</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Options</th>
                     </thead>
                     <tbody>
                         <?php foreach ($users as $key => $value) { ?>
                             <tr class="">
-                                <th scope="row"><?php echo $value["id"]; ?></th>
-                                <td><?php echo $value["username"]; ?></td>
-                                <td><?php echo $value["email"]; ?></td>
+                                <th scope="row"><?php echo $value->id; ?></th>
+                                <td><?php echo $value->username; ?></td>
+                                <td><?php echo $value->email; ?></td>
                                 <td>
                                     <a href="#"><button class="btn btn-success me-3">Edit</button></a>
-                                    <a href="/admin/users/deleteUser.php?id=<?php echo $value["id"]; ?>"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="/admin/users/deleteUser.php?id=<?php echo $value->id; ?>"><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                         <?php } ?>

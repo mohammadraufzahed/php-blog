@@ -1,6 +1,6 @@
 <?php
-include(__DIR__ . "/include/settings/updateSettings.php");
-include(__DIR__ . "/include/settings/getSettings.php");
+require_once(__DIR__ . "/include/settings/updateSettings.php");
+require_once(__DIR__ . "/include/settings/getSettings.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
