@@ -1,9 +1,11 @@
 <?php
 require_once(__DIR__ . "/../config.php");
+// Send query to database
 $posts = $conn->prepare("SELECT `id`, `title`, `body`, `published` FROM `posts`");
 $posts->execute();
+// Save the received data as object
 $posts = $posts->fetchAll(PDO::FETCH_OBJ);
-function printPosts($postsArr)
+function printPosts(array $postsArr): void
 {
     foreach ($postsArr as $key => $value) {
         if ($value->published == 'Y') { ?>
@@ -13,7 +15,8 @@ function printPosts($postsArr)
                 <p class="pt-3 pb-3 post-text text-start m-auto"><?php echo $value->body; ?>
                     <a class="link-primary text-end" href="post.php?id=<?php echo $value->id; ?>">Read more</a>
                 </p>
-            </div><?php
-                }
-            }
+            </div>
+<?php
         }
+    }
+}

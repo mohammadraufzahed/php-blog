@@ -5,8 +5,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Store the received data
     $postId = $_GET['id'];
     // Send delete request to database
-    $sql = "DELETE FROM `posts` WHERE `id`=$postId";
+    $sql = "DELETE FROM `posts` WHERE `id`=:postId";
     $deletePost = $conn->prepare($sql);
+    $deletePost->bindParam(":postId", $postId, PDO::PARAM_INT);
     if ($deletePost->execute()) { ?>
         <script>
             alert("Post Deleted");

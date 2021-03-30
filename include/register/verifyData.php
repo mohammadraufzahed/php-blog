@@ -1,6 +1,6 @@
 <?php
 // Check data with some standards
-function verifyDataStandard($data)
+function verifyDataStandard(array $data): void
 {
     // Check the username not empty
     if (empty(trim($data["username"]))) {
@@ -8,8 +8,8 @@ function verifyDataStandard($data)
     }
     // Check the username not contain useless symbols
     $banedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
-    for ($i = 0; $i <= (sizeof($banedSymbols) - 1); $i++) {
-        if(strpos($data["username"], $banedSymbols[$i]) == true){
+    foreach ($banedSymbols as $value) {
+        if (strpos($data["username"], $value) == true) {
             die("Your username must not contain(~!@#$%^&*_+.)");
         }
     }
@@ -24,13 +24,14 @@ function verifyDataStandard($data)
 }
 
 // Check the database if username exists or not
-function verifyDataWithDatabase($data, $conn)
+function verifyDataWithDatabase(array $data, object $conn): void
 {
-	// Store needed data in variable
+    // Store needed data in variable
     $username = $data["username"];
     // Send query to database
-    $sql = "SELECT * FROM `users` WHERE username='$username'";
+    $sql = "SELECT * FROM `users` WHERE username=:username";
     $query = $conn->prepare($sql);
+    $query->bindParam(":username", $username, PDO::PARAM_STR);
     $query->execute();
     $userFound = $query->fetchAll(PDO::FETCH_OBJ);
     // Check the user exists or not

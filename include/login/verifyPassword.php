@@ -1,15 +1,16 @@
 <?php
 // Verify the password if the user exists
-function verifyPassword($data, $conn)
+function verifyPassword(array $data, object $conn): array
 {
-	// Store needed data
+    // Store needed data
     $username = $data["username"];
     // Send query to database
-    $sql = "SELECT `id`, `password`, `is_admin` FROM `users` WHERE username='$username'";
+    $sql = "SELECT `id`, `password`, `is_admin` FROM `users` WHERE username=:username";
     $query = $conn->prepare($sql);
-	$query->execute();
+    $query->bindParam(":username", $username, PDO::PARAM_STR);
+    $query->execute();
     $dataDB = $query->fetchAll(PDO::FETCH_OBJ);
-	$dataDBUser = [];
+    $dataDBUser = [];
     // Store data in array
     foreach ($dataDB as $key => $value) {
         array_push($dataDBUser, $value->id);
