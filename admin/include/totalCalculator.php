@@ -1,11 +1,12 @@
 <?php
-require_once(__DIR__ . "/../../include/config.php");
+require_once __DIR__ . "/../../class/Database.php";
+// Create database connection
+$db = new Database();
 // Send request to database
-$posts = $conn->prepare("SELECT `id` FROM `posts`");
-$posts->execute();
-$users = $conn->prepare("SELECT `id` FROM `users`");
-$users->execute();
+$db->query("SELECT `id` FROM `posts`");
+$db->execute();
+$totalPosts = $db->rowCount();
 
-// Define the counter variables
-$totalUsers = $users->rowCount();
-$totalPosts = $posts->rowCount();
+$db->query("SELECT `id` FROM `users`");
+$db->execute();
+$totalUsers = $db->rowCount();

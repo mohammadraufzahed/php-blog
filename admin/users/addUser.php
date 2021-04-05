@@ -1,5 +1,18 @@
 <?php
-require_once(__DIR__ . "/../../include/register/doRegister.php");
+require_once __DIR__ . "/../../class/Account/Register.php";
+
+if (isset($_POST["register"])) {
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+	$passwordConfirm = $_POST["passwordConfirm"];
+
+	$register = new Register($username, $password, $passwordConfirm, "admin/users/addUser.php");
+	if ($register->registerUser()) {
+		header("location: /admin/users/addUser.php?status=1");
+		die();
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,9 +37,9 @@ require_once(__DIR__ . "/../../include/register/doRegister.php");
 <body>
 
 <div class="d-flex" id="wrapper">
-    <?php
-    include(__DIR__ . "/../sidebar.php");
-    ?>
+	<?php
+	include(__DIR__ . "/../sidebar.php");
+	?>
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
@@ -35,7 +48,19 @@ require_once(__DIR__ . "/../../include/register/doRegister.php");
         </nav>
 
         <div class="container-fluid text-center">
-            <form class="w-75 m-auto mt-5" action="/include/register/doRegister.php" method="POST">
+            <form class="w-75 m-auto mt-5" action="/admin/users/addUser.php" method="POST">
+				<?php
+				if (isset($_GET["status"]) && $_GET["status"] == 1) {
+					?>
+                    <div class="pt-3 pb-3 text-center text-white bg-success w-100 h-auto">
+                        <b>User created successfully</b>
+                    </div>
+					<?php
+				} elseif (isset($_GET["error"])) {
+					$error = intval($_GET["error"]);
+					Register::printError($error);
+				}
+				?>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Username" name="username">
@@ -46,9 +71,10 @@ require_once(__DIR__ . "/../../include/register/doRegister.php");
                 </div>
                 <div class="mb-3">
                     <label for="passwordConfirm" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password" name="passwordConfirm">
+                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password"
+                           name="passwordConfirm">
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" name="register">Save</button>
             </form>
         </div>
     </div>
@@ -64,7 +90,7 @@ require_once(__DIR__ . "/../../include/register/doRegister.php");
 
 <!-- Menu Toggle Script -->
 <script>
-    $("#menu-toggle").click(function(e) {
+    $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
