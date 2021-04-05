@@ -1,5 +1,21 @@
 <?php
-require_once(__DIR__ . "/include/permission.php");
+require_once __DIR__ . "/class/Account/Register.php";
+require_once __DIR__ . "/class/Permission.php";
+
+$permission = new Permission();
+$permission->permissionUser();
+
+if (isset($_POST["register"])) {
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+	$passwordConfirm = $_POST["passwordConfirm"];
+	$register = new Register($username, $password, $passwordConfirm, "register.php");
+	if ($register->registerUser()) {
+		header("location: /login.php");
+		die();
+	}
+}
+$permission->permissionUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +40,13 @@ require_once(__DIR__ . "/include/permission.php");
                 <div class="card-body">
                     <h5 class="card-title">Register</h5>
                     <div class="card-text">
-                        <form class="text-start" action="/include/register/doRegister.php" method="POST">
+						<?php
+						if (isset($_GET["error"])) {
+							$error = intval($_GET["error"]);
+							Register::printError($error);
+						}
+						?>
+                        <form class="text-start" action="/register.php" method="POST">
                             <div class="mb-1">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
@@ -39,7 +61,7 @@ require_once(__DIR__ . "/include/permission.php");
                                 <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
                             </div>
                             <div class="text-center pt-1">
-                                <button type="submit" class="btn btn-light">Register</button>
+                                <button type="submit" class="btn btn-light" name="register">Register</button>
                             </div>
                         </form>
                     </div>
