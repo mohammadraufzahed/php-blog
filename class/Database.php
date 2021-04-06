@@ -90,6 +90,7 @@ class Database
 	{
 		{
 			$this->db = null;
+			$this->stmt = null;
 		}
 	}
 }
