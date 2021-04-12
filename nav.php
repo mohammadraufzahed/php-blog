@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . "/class/Blog.php";
-$blog = new Blog();
+
+use Blog\Info;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+$blog = new Info();
 session_start();
 ?>
 <!--Navabr Start-->

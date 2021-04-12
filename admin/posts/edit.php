@@ -1,8 +1,11 @@
 <?php
-require_once __DIR__ . "/../class/Posts.php";
-require_once(__DIR__ . "/../include/posts/editPost.php");
 
-$postManager = new Posts();
+use Post\Management as PostManagement;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
+
+
+$postManager = new PostManagement();
 if (isset($_GET["id"])) {
 	$postId = $_GET["id"];
 	$postManager->getPost($postId);

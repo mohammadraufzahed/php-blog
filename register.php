@@ -1,8 +1,12 @@
 <?php
-require_once __DIR__ . "/class/Account/Register.php";
-require_once __DIR__ . "/class/Permission.php";
 
-$permission = new Permission();
+use Account\Register;
+use Permission\UserPermission;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+
+$permission = new UserPermission();
 $permission->permissionUser();
 
 if (isset($_POST["register"])) {
@@ -43,7 +47,7 @@ $permission->permissionUser();
 						<?php
 						if (isset($_GET["error"])) {
 							$error = intval($_GET["error"]);
-							Register::printError($error);
+							Account\Register::printError($error);
 						}
 						?>
                         <form class="text-start" action="/register.php" method="POST">

@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . "/../class/Permission.php";
-$permission = new Permission();
+
+use Permission\AdminPermission;
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
+$permission = new AdminPermission();
 $permission->permissionAdmin();
 ?>
 <!-- Sidebar -->

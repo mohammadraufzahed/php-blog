@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . "/../../class/Database.php";
+
+namespace Blog;
+
+use Database\Mysql;
+use PDO;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Class Settings
@@ -18,7 +24,7 @@ class Settings
 	public function __construct()
 	{
 		// Create database connection
-		$this->db = new Database();
+		$this->db = new Mysql();
 		// Get blog settings from database
 		$this->db->query("SELECT `blogTitle`,`blogAuthor`,`blogAuthorInfo` FROM `settings`");
 		$this->db->execute();

@@ -1,9 +1,13 @@
 <?php
-require_once(__DIR__ . "/../../class/Database.php");
+
+use Database\Mysql;
+
+require_once(__DIR__ . "/../../vendor/autoload.php");
+
 // Check the request method
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	// Create database connection
-	$db = new Database();
+	$db = new Mysql();
 	// Store the needed data
 	$userID = intval($_GET["id"]);
 	// Send the delete request to database

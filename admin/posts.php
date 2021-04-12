@@ -1,9 +1,11 @@
 <?php
-require_once __DIR__ . "/../class/Post.php";
-require_once __DIR__ . "/class/Posts.php";
 
-$posts = new Post();
-$postManager = new Posts();
+use Post\{Fetch, Management};
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
+$posts = new Fetch();
+$postManager = new Management();
 ?>
 <!DOCTYPE html>
 <html lang="en">

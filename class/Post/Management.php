@@ -1,10 +1,16 @@
 <?php
-require_once __DIR__ . "/../../class/Database.php";
+
+namespace Post;
+
+use Database\Mysql;
+use PDO;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Class Posts
  */
-class Posts
+class Management
 {
 
 	public int $postId;
@@ -21,7 +27,7 @@ class Posts
 	{
 		session_start();
 		$this->userId = intval($_SESSION["id"]);
-		$this->db = new Database();
+		$this->db = new Mysql();
 	}
 
 	/**

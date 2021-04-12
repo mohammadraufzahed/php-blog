@@ -1,9 +1,11 @@
 <?php
 
+namespace Permission;
+
 /**
- * Class Permission
+ * Class Admin Permission
  */
-class Permission
+class AdminPermission
 {
 	public function __construct()
 	{
@@ -16,17 +18,6 @@ class Permission
 	public function permissionAdmin()
 	{
 		if ($_SESSION["isLogged"] !== true || $_SESSION["isAdmin"] !== "Y") {
-			header("location: /");
-			die();
-		}
-	}
-
-	/**
-	 * User panel permission manager
-	 */
-	public function permissionUser()
-	{
-		if ($_SESSION["isLogged"]) {
 			header("location: /");
 			die();
 		}

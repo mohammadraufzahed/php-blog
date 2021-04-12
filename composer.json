@@ -1,0 +1,24 @@
+{
+  "name": "mohammadraufzahed/php-blog",
+  "description": "Simple php blog",
+  "type": "project",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Mohammad Raufzahed",
+      "email": "mohammadraufzahed@protonmail.com"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Database\\": "class/Database",
+      "Blog\\": "class/Blog",
+      "Post\\": "class/Post",
+      "Account\\": "class/Account",
+      "Permission\\": "class/Permission"
+    }
+  }
+}

@@ -1,9 +1,14 @@
 <?php
 
+namespace Database;
+
+use PDO;
+use PDOException;
+
 /**
  * Class Database
  */
-class Database
+class Mysql
 {
 	private const DB_HOST = "localhost";
 	private const DB_NAME = "blog";

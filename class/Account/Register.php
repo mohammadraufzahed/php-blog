@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . "/../Database.php";
+
+namespace Account;
+
+use Database\Mysql;
+use PDO;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Class Register
@@ -108,7 +114,7 @@ class Register
 	private function verifyDatabase()
 	{
 		// Create database connection
-		$db = new Database();
+		$db = new Mysql();
 		// Send query to database
 		$db->query("SELECT * FROM `users` WHERE username=:username");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);
@@ -128,7 +134,7 @@ class Register
 	private function registerUserInDatabase(): bool
 	{
 		// Create database connection
-		$db = new Database();
+		$db = new Mysql();
 		// Send query to database
 		$db->query("INSERT INTO `users`(`username`, `password`) VALUES (:username, :password)");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);

@@ -1,7 +1,20 @@
 <?php
-require_once __DIR__ . "/class/Post.php";
-$postManager = new Post();
-$post = $postManager->getPost(intval($_GET["id"]));
+
+use Post\Fetch as FetchPost;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+// Check the user request method.
+if (isset($_GET["id"])) {
+	// Save the post id
+	$postId = intval($_GET["id"]);
+	$postManager = new FetchPost();
+	// Fetch the post
+	$post = $postManager->fetchPost($postId);
+} else {
+	header("location: /index.php");
+}
+
 ?>
 <!doctype html>
 <html lang="en">

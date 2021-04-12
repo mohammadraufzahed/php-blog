@@ -1,9 +1,13 @@
 <?php
-require_once __DIR__ . "/class/Blog.php";
-require_once __DIR__ . "/class/Post.php";
 
-$blog = new Blog();
-$postManager = new Post();
+require_once __DIR__ . "/vendor/autoload.php";
+
+
+use Blog\Info;
+use Post\Fetch;
+
+$blog = new Info();
+$postManager = new Fetch();
 ?>
 <!doctype html>
 <html lang="en">

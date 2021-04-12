@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . "/../Database.php";
+
+namespace Account;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
+
+use Database\Mysql;
+use PDO;
 
 /**
  * Class Login
@@ -58,7 +64,7 @@ class Login
 	private function verifyPassword()
 	{
 		// Create database connection
-		$db = new Database();
+		$db = new Mysql();
 		// Send query
 		$db->query("SELECT `id`, `password`, `is_admin` FROM `users` WHERE username=:username");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);

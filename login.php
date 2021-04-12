@@ -1,8 +1,11 @@
 <?php
-require_once __DIR__ . "/class/Account/Login.php";
-require_once __DIR__ . "/class/Permission.php";
 
-$permission = new Permission();
+use Account\Login;
+use Permission\UserPermission;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+$permission = new UserPermission();
 $permission->permissionUser();
 
 if (isset($_POST["login"])) {

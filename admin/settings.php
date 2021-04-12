@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . "/class/Settings.php";
+
+use Blog\Settings;
+
+require_once __DIR__ . "/../vendor/autoload.php";
 $settings = new Settings();
 if (isset($_POST["update"])) {
 	$blogTitle = $_POST["blogName"];

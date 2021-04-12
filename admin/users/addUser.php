@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . "/../../class/Account/Register.php";
+
+use Account\Register;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 if (isset($_POST["register"])) {
 	$username = $_POST["username"];

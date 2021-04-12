@@ -1,10 +1,15 @@
 <?php
-require_once __DIR__ . "/Database.php";
+
+namespace Blog;
+
+use Database\Mysql;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Class Blog
  */
-class Blog
+class Info
 {
 	public $blogTitle;
 	public $blogAuthor;
@@ -12,7 +17,7 @@ class Blog
 
 	public function __construct()
 	{
-		$db = new Database();
+		$db = new Mysql();
 		$db->query("SELECT `blogTitle`, `blogAuthor`, `blogAuthorInfo` FROM `settings`");
 		$db->execute();
 		$result = $db->fetch();

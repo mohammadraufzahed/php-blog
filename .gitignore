@@ -150,3 +150,5 @@ includes/db.php
 .idea/php-blog.iml
 .idea/sqldialects.xml
 .idea/vcs.xml
+
+/vendor/
