@@ -11,9 +11,9 @@ use PDOException;
 class Mysql
 {
 	private const DB_HOST = "localhost";
-	private const DB_NAME = "blog";
-	private const DB_USER = "mohammad";
-	private const DB_PASS = "09351515982Mr@";
+	private const DB_NAME = "php_blog";
+	private const DB_USER = "root";
+	private const DB_PASS = "";
 
 	private $db;
 	private $stmt;
@@ -68,7 +68,7 @@ class Mysql
 	 * Fetch the data as object from statement
 	 * @return object
 	 */
-	public function fetch(): object
+	public function fetch()
 	{
 		return $this->stmt->fetch(PDO::FETCH_OBJ);
 	}

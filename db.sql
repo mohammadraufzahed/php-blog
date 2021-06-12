@@ -24,4 +24,7 @@ CREATE TABLE IF NOT EXISTS `posts`
     `created_at` TIMESTAMP                DEFAULT CURRENT_TIMESTAMP,
     `published`  ENUM ('Y', 'N') NOT NULL DEFAULT 'N'
 );
+
+INSERT INTO `settings`(`blogTitle`, `blogDescription`, `blogAuthor`, `blogAuthorInfo`) VALUES ('Blog', 'Simple Blog', 'Jonh', 'Pro developer');
+INSERT INTO `users`(`username`, `password`, `email`, `is_admin`) VALUES ('admin', '$2y$10$sJp2evNq5fp8SkJu7CfGQOmY7pIMHFLd09eORbCVabkHlinn6RoOm', 'email@riseup.net', 'Y');
 commit;
