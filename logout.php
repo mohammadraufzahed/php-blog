@@ -1,6 +1,8 @@
 <?php
-session_start();
-if ((!$_SESSION["isLogged"])) {
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+if (empty($_SESSION["isLogged"])) {
 	header("location: /index.php");
 	die();
 }

@@ -11,7 +11,9 @@ class UserPermission
 
 	public function __construct()
 	{
-		session_start();
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 		if (isset($_SESSION["isLogged"])) {
 			$this->isLogged = $_SESSION["isLogged"];
 		} else {

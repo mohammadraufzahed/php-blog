@@ -9,7 +9,9 @@ class AdminPermission
 {
 	public function __construct()
 	{
-		session_start();
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 	}
 
 	/**
@@ -17,7 +19,7 @@ class AdminPermission
 	 */
 	public function permissionAdmin()
 	{
-		if ($_SESSION["isLogged"] !== true || $_SESSION["isAdmin"] !== "Y") {
+		if (empty($_SESSION["isLogged"]) || $_SESSION["isLogged"] !== true || empty($_SESSION["isAdmin"]) || $_SESSION["isAdmin"] !== "Y") {
 			header("location: /");
 			die();
 		}

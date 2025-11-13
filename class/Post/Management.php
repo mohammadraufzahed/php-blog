@@ -25,8 +25,10 @@ class Management
 	 */
 	public function __construct()
 	{
-		session_start();
-		$this->userId = intval($_SESSION["id"]);
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+		$this->userId = !empty($_SESSION["id"]) ? intval($_SESSION["id"]) : 0;
 		$this->db = new Mysql();
 	}
 

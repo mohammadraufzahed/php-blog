@@ -37,7 +37,9 @@ class Login
 		$this->verifyStandard();
 		$this->verifyPassword();
 		// save the user
-		session_start();
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 		$_SESSION["isLogged"] = true;
 		$_SESSION["username"] = $this->username;
 		$_SESSION["id"] = $this->userId;

@@ -21,8 +21,14 @@ class Mysql
 
 	public function __construct()
 	{
+		// Use environment variables if available (for Docker), otherwise use constants
+		$host = getenv('DB_HOST') ?: self::DB_HOST;
+		$name = getenv('DB_NAME') ?: self::DB_NAME;
+		$user = getenv('DB_USER') ?: self::DB_USER;
+		$pass = getenv('DB_PASS') ?: self::DB_PASS;
+
 		try {
-			$this->db = new PDO("mysql:host=" . $this::DB_HOST . ";dbname=" . $this::DB_NAME . ";charset utf8", $this::DB_USER, $this::DB_PASS);
+			$this->db = new PDO("mysql:host=" . $host . ";dbname=" . $name . ";charset=utf8", $user, $pass);
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			echo $e->getMessage();
@@ -93,9 +99,7 @@ class Mysql
 
 	public function __destruct()
 	{
-		{
-			$this->db = null;
-			$this->stmt = null;
-		}
+		$this->db = null;
+		$this->stmt = null;
 	}
 }
