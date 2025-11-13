@@ -87,13 +87,11 @@ class Register
 			header("location: /" . $this->baseUri . "?error=1");
 			die();
 		}
-		// Check the username is contain forbidden symbols using PHP 8.4 array_any()
 		$bannedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
 		if (function_exists('array_any') && array_any($bannedSymbols, fn($symbol) => str_contains($this->username, $symbol))) {
 			header("location: /" . $this->baseUri . "?error=2");
 			die();
 		} elseif (!function_exists('array_any')) {
-			// Fallback for older PHP versions
 			foreach ($bannedSymbols as $value) {
 				if (str_contains($this->username, $value)) {
 					header("location: /" . $this->baseUri . "?error=2");

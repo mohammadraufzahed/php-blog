@@ -20,7 +20,6 @@ class Mysql
 
 	public function __construct()
 	{
-		// Use environment variables if available (for Docker), otherwise use constants
 		$host = getenv('DB_HOST') ?: self::DB_HOST;
 		$name = getenv('DB_NAME') ?: self::DB_NAME;
 		$user = getenv('DB_USER') ?: self::DB_USER;
@@ -30,10 +29,7 @@ class Mysql
 			$this->db = new PDO("mysql:host=" . $host . ";dbname=" . $name . ";charset=utf8", $user, $pass);
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
-			// Don't output errors directly to avoid header issues
-			// Log error instead (in production, use proper logging)
 			error_log("Database connection error: " . $e->getMessage());
-			// Throw exception to be handled by calling code
 			throw new PDOException("Database connection failed", 0, $e);
 		}
 	}

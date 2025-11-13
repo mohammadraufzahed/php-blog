@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check admin permissions BEFORE any output
 use Permission\AdminPermission;
 require_once __DIR__ . "/../vendor/autoload.php";
 $permission = new AdminPermission();

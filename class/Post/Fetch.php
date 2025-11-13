@@ -60,10 +60,8 @@ class Fetch
 	 */
 	public function printPosts(): void
 	{
-		// Use PHP 8.4 array functions for filtering published posts
 		$publishedPosts = array_filter($this->posts, fn($post) => $post->published === 'Y');
 
-		// Use PHP 8.4 array_any() to check if there are any published posts
 		if (function_exists('array_any') && !array_any($this->posts, fn($post) => $post->published === 'Y')) {
 			echo "<p class='text-center'>No posts available.</p>";
 			return;

@@ -85,7 +85,6 @@ class Management
 		$this->db->execute();
 		$result = $this->db->fetch();
 
-		// PHP 8.4: Improved null safety
 		if ($result === false) {
 			header("location: /admin/posts.php");
 			die();
