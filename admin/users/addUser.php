@@ -3,9 +3,13 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
+// Check admin permissions BEFORE any output
+use Permission\AdminPermission;
 use Account\Register;
 
 require_once __DIR__ . "/../../vendor/autoload.php";
+$permission = new AdminPermission();
+$permission->permissionAdmin();
 
 if (isset($_POST["register"])) {
 	$username = $_POST["username"];

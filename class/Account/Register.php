@@ -59,9 +59,9 @@ class Register
 				break;
 		}
 		?>
-        <div class="pt-3 pb-3 text-center text-white bg-danger w-100 h-auto">
-            <b><?php echo $errorMessage; ?></b>
-        </div>
+		<div class="pt-3 pb-3 text-center text-white bg-danger w-100 h-auto">
+			<b><?php echo $errorMessage; ?></b>
+		</div>
 		<?php
 	}
 
@@ -87,12 +87,18 @@ class Register
 			header("location: /" . $this->baseUri . "?error=1");
 			die();
 		}
-		// Check the username is contain forbidden symbols
-		$banedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
-		foreach ($banedSymbols as $value) {
-			if (strpos($this->username, $value)) {
-				header("location: /" . $this->baseUri . "?error=2");
-				die();
+		// Check the username is contain forbidden symbols using PHP 8.4 array_any()
+		$bannedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
+		if (function_exists('array_any') && array_any($bannedSymbols, fn($symbol) => str_contains($this->username, $symbol))) {
+			header("location: /" . $this->baseUri . "?error=2");
+			die();
+		} elseif (!function_exists('array_any')) {
+			// Fallback for older PHP versions
+			foreach ($bannedSymbols as $value) {
+				if (str_contains($this->username, $value)) {
+					header("location: /" . $this->baseUri . "?error=2");
+					die();
+				}
 			}
 		}
 		// Check the password and passwordConfirm are empty or not

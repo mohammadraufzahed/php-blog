@@ -12,8 +12,8 @@ require_once __DIR__ . "/../../vendor/autoload.php";
  */
 class Fetch
 {
-	public array $posts;
-	private object $db;
+	public array $posts = [];
+	private Mysql $db;
 
 	/**
 	 * Post constructor.
@@ -41,9 +41,9 @@ class Fetch
 	/**
 	 * Return a post
 	 * @param int $id
-	 * @return object
+	 * @return object|false
 	 */
-	public function fetchPost(int $id): object
+	public function fetchPost(int $id): object|false
 	{
 		// Send query
 		$this->db->query("SELECT `title`, `body` FROM `posts` WHERE `id`=:id");
@@ -60,17 +60,24 @@ class Fetch
 	 */
 	public function printPosts(): void
 	{
-		foreach ($this->posts as $value) {
-			if ($value->published == 'Y') { ?>
-                <div class="posts bg-dark text-white text-center h-auto mb-3">
-                    <img class="img-fluid post-image" src="static/img/post.jpg" alt="Post image">
-                    <h3 class="post-title pt-3"><?php echo $value->title ?></h3>
-                    <p class="pt-3 pb-3 post-text text-start m-auto"><?php echo $value->body; ?>
-                        <a class="link-primary text-end" href="post.php?id=<?php echo $value->id; ?>">Read more</a>
-                    </p>
-                </div>
-				<?php
-			}
+		// Use PHP 8.4 array functions for filtering published posts
+		$publishedPosts = array_filter($this->posts, fn($post) => $post->published === 'Y');
+
+		// Use PHP 8.4 array_any() to check if there are any published posts
+		if (function_exists('array_any') && !array_any($this->posts, fn($post) => $post->published === 'Y')) {
+			echo "<p class='text-center'>No posts available.</p>";
+			return;
+		}
+
+		foreach ($publishedPosts as $value) { ?>
+			<div class="posts bg-dark text-white text-center h-auto mb-3">
+				<img class="img-fluid post-image" src="static/img/post.jpg" alt="Post image">
+				<h3 class="post-title pt-3"><?php echo $value->title ?></h3>
+				<p class="pt-3 pb-3 post-text text-start m-auto"><?php echo $value->body; ?>
+					<a class="link-primary text-end" href="post.php?id=<?php echo $value->id; ?>">Read more</a>
+				</p>
+			</div>
+			<?php
 		}
 	}
 }

@@ -1,7 +1,21 @@
 <?php
+// Start output buffering to catch any accidental output
+ob_start();
+
 if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
+
+// Check admin permissions BEFORE any output
+require_once __DIR__ . "/../vendor/autoload.php";
+use Permission\AdminPermission;
+$permission = new AdminPermission();
+$permission->permissionAdmin();
+
+// Clear output buffer if we got here (permission check passed)
+ob_end_clean();
+
+// Only include getUsers.php after permission check passes
 require_once(__DIR__ . "/include/users/getUsers.php");
 ?>
 <!DOCTYPE html>

@@ -12,11 +12,11 @@ require_once __DIR__ . "/../../vendor/autoload.php";
  */
 class Settings
 {
-	public string $blogTitle;
-	public string $blogAuthor;
-	public string $blogAuthorInfo;
+	public string $blogTitle = "";
+	public string $blogAuthor = "";
+	public string $blogAuthorInfo = "";
 
-	private object $db;
+	private Mysql $db;
 
 	/**
 	 * Settings constructor.

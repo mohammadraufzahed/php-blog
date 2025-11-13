@@ -1,11 +1,5 @@
 <?php
-
-use Permission\AdminPermission;
-
-require_once __DIR__ . "/../vendor/autoload.php";
-
-$permission = new AdminPermission();
-$permission->permissionAdmin();
+// Permission check is done in each admin file before including this sidebar
 ?>
 <!-- Sidebar -->
 <div class="bg-dark border-right text-white" id="sidebar-wrapper">

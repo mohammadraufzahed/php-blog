@@ -11,9 +11,9 @@ require_once __DIR__ . "/../../vendor/autoload.php";
  */
 class Info
 {
-	public $blogTitle;
-	public $blogAuthor;
-	public $blogAuthorInfo;
+	public string $blogTitle;
+	public string $blogAuthor;
+	public string $blogAuthorInfo;
 
 	public function __construct()
 	{

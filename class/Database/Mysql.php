@@ -15,9 +15,8 @@ class Mysql
 	private const DB_USER = "root";
 	private const DB_PASS = "";
 
-	private $db;
-	private $stmt;
-	private $error;
+	private ?PDO $db = null;
+	private ?\PDOStatement $stmt = null;
 
 	public function __construct()
 	{
@@ -31,7 +30,11 @@ class Mysql
 			$this->db = new PDO("mysql:host=" . $host . ";dbname=" . $name . ";charset=utf8", $user, $pass);
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
-			echo $e->getMessage();
+			// Don't output errors directly to avoid header issues
+			// Log error instead (in production, use proper logging)
+			error_log("Database connection error: " . $e->getMessage());
+			// Throw exception to be handled by calling code
+			throw new PDOException("Database connection failed", 0, $e);
 		}
 	}
 
@@ -48,11 +51,11 @@ class Mysql
 	/**
 	 * Bind data to sql prepared statement
 	 * @param string $param
-	 * @param string $value
+	 * @param mixed $value
 	 * @param int $type
 	 * @return void
 	 */
-	public function bind(string $param, string $value, int $type)
+	public function bind(string $param, mixed $value, int $type): void
 	{
 		$this->stmt->bindParam($param, $value, $type);
 	}
@@ -72,9 +75,9 @@ class Mysql
 
 	/**
 	 * Fetch the data as object from statement
-	 * @return object
+	 * @return object|false
 	 */
-	public function fetch()
+	public function fetch(): object|false
 	{
 		return $this->stmt->fetch(PDO::FETCH_OBJ);
 	}

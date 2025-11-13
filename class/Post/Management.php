@@ -12,13 +12,12 @@ require_once __DIR__ . "/../../vendor/autoload.php";
  */
 class Management
 {
-
-	public int $postId;
-	public string $postTitle;
-	public string $postBody;
-	public string $isPublished;
-	private object $db;
-	private int $userId;
+	public int $postId = 0;
+	public string $postTitle = "";
+	public string $postBody = "";
+	public string $isPublished = "N";
+	private Mysql $db;
+	private int $userId = 0;
 
 	/**
 	 * Posts constructor.
@@ -45,7 +44,7 @@ class Management
 		$this->db->bind(":userId", $this->userId, PDO::PARAM_INT);
 		$this->db->bind(":postTitle", $title, PDO::PARAM_STR);
 		$this->db->bind(":postBody", $body, PDO::PARAM_STR);
-		$this->db->bind("postPublish", $isPublished, PDO::PARAM_STR_CHAR);
+		$this->db->bind(":postPublish", $isPublished, PDO::PARAM_STR);
 
 		// Execute the statement
 		if ($this->db->execute()) {
@@ -85,6 +84,13 @@ class Management
 		$this->db->bind(":id", $id, PDO::PARAM_INT);
 		$this->db->execute();
 		$result = $this->db->fetch();
+
+		// PHP 8.4: Improved null safety
+		if ($result === false) {
+			header("location: /admin/posts.php");
+			die();
+		}
+
 		$this->postId = $id;
 		$this->postTitle = $result->title;
 		$this->postBody = $result->body;
@@ -152,9 +158,9 @@ class Management
 			}
 		}
 		?>
-        <div class="pt-3 pb-3 text-center text-white bg-<?php echo ($errorCode == 1) ? "success" : "danger" ?> w-100 h-auto">
-            <b><?php echo $errorMessage; ?></b>
-        </div>
+		<div class="pt-3 pb-3 text-center text-white bg-<?php echo ($errorCode == 1) ? "success" : "danger" ?> w-100 h-auto">
+			<b><?php echo $errorMessage; ?></b>
+		</div>
 		<?php
 	}
 }
