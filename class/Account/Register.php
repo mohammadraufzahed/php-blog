@@ -84,30 +84,25 @@ class Register
 	{
 		// Check the username is empty or not
 		if (empty($this->username)) {
-			header("location: /" . $this->baseUri . "?error=1");
-			die();
+			\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=1');
 		}
 		$bannedSymbols = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "."];
 		if (function_exists('array_any') && array_any($bannedSymbols, fn($symbol) => str_contains($this->username, $symbol))) {
-			header("location: /" . $this->baseUri . "?error=2");
-			die();
+			\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=2');
 		} elseif (!function_exists('array_any')) {
 			foreach ($bannedSymbols as $value) {
 				if (str_contains($this->username, $value)) {
-					header("location: /" . $this->baseUri . "?error=2");
-					die();
+					\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=2');
 				}
 			}
 		}
 		// Check the password and passwordConfirm are empty or not
 		if (empty($this->password) || empty($this->passwordConfirm)) {
-			header("location: /" . $this->baseUri . "?error=3");
-			die();
+			\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=3');
 		}
 		// Check the password and passwordConfirm to be equal
 		if ($this->password !== $this->passwordConfirm) {
-			header("location: /" . $this->baseUri . "?error=4");
-			die();
+			\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=4');
 		}
 	}
 
@@ -117,8 +112,8 @@ class Register
 	 */
 	private function verifyDatabase()
 	{
-		// Create database connection
-		$db = new Mysql();
+		// Get database from container
+		$db = \App\Container::get(\Database\Mysql::class);
 		// Send query to database
 		$db->query("SELECT * FROM `users` WHERE username=:username");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);
@@ -126,8 +121,7 @@ class Register
 
 		// Check how many user found
 		if ($db->rowCount()) {
-			header("location: /" . $this->baseUri . "?error=5");
-			die();
+			\App\Helpers\Redirect::to('/' . $this->baseUri . '?error=5');
 		}
 	}
 
@@ -137,8 +131,8 @@ class Register
 	 */
 	private function registerUserInDatabase(): bool
 	{
-		// Create database connection
-		$db = new Mysql();
+		// Get database from container
+		$db = \App\Container::get(\Database\Mysql::class);
 		// Send query to database
 		$db->query("INSERT INTO `users`(`username`, `password`) VALUES (:username, :password)");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);

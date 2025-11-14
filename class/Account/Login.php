@@ -54,8 +54,7 @@ class Login
 	{
 		// Review the data
 		if (empty($this->username) || empty($this->password)) {
-			header("location: /login.php?error=1");
-			die();
+			\App\Helpers\Redirect::to('/login?error=1');
 		}
 	}
 
@@ -65,8 +64,8 @@ class Login
 	 */
 	private function verifyPassword()
 	{
-		// Create database connection
-		$db = new Mysql();
+		// Get database from container
+		$db = \App\Container::get(\Database\Mysql::class);
 		// Send query
 		$db->query("SELECT `id`, `password`, `is_admin` FROM `users` WHERE username=:username");
 		$db->bind(":username", $this->username, PDO::PARAM_STR);
@@ -74,15 +73,13 @@ class Login
 		$result = $db->fetch();
 		// Check the user is found or not
 		if ($db->rowCount() !== 1) {
-			header("location: /login.php?error=2");
-			die();
+			\App\Helpers\Redirect::to('/login?error=2');
 		}
 		if (password_verify($this->password, $result->password)) {
 			$this->userId = intval($result->id);
 			$this->isAdmin = $result->is_admin;
 		} else {
-			header("location: /login.php?error=3");
-			die();
+			\App\Helpers\Redirect::to('/login?error=3');
 		}
 	}
 }

@@ -20,8 +20,7 @@ class AdminPermission
 	public function permissionAdmin()
 	{
 		if (empty($_SESSION["isLogged"]) || $_SESSION["isLogged"] !== true || empty($_SESSION["isAdmin"]) || $_SESSION["isAdmin"] !== "Y") {
-			header("location: /");
-			die();
+			\App\Helpers\Redirect::to('/');
 		}
 	}
 }

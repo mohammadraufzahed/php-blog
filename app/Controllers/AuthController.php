@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Container;
 use App\Controller;
 use Account\Login;
 use Account\Register;
@@ -15,10 +16,10 @@ class AuthController extends Controller
             session_start();
         }
 
-        $permission = new UserPermission();
+        $permission = Container::make(UserPermission::class);
         $permission->permissionUser();
 
-        require __DIR__ . '/../../login.php';
+        $this->view('auth.login');
     }
 
     public function login(): void
@@ -27,7 +28,7 @@ class AuthController extends Controller
             session_start();
         }
 
-        $permission = new UserPermission();
+        $permission = Container::make(UserPermission::class);
         $permission->permissionUser();
 
         if (isset($_POST["login"])) {
@@ -47,10 +48,10 @@ class AuthController extends Controller
             session_start();
         }
 
-        $permission = new UserPermission();
+        $permission = Container::make(UserPermission::class);
         $permission->permissionUser();
 
-        require __DIR__ . '/../../register.php';
+        $this->view('auth.register');
     }
 
     public function register(): void
@@ -59,7 +60,7 @@ class AuthController extends Controller
             session_start();
         }
 
-        $permission = new UserPermission();
+        $permission = Container::make(UserPermission::class);
         $permission->permissionUser();
 
         if (isset($_POST["register"])) {

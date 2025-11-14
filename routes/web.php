@@ -26,7 +26,8 @@ return function (RouteCollector $r) {
         $r->addRoute('POST', '/posts/{id:\d+}/edit', 'AdminController@updatePost');
         $r->addRoute('POST', '/posts/{id:\d+}/delete', 'AdminController@deletePost');
         $r->addRoute('GET', '/users', 'AdminController@users');
-        $r->addRoute('POST', '/users/add', 'AdminController@addUser');
+        $r->addRoute('GET', '/users/add', 'AdminController@addUser');
+        $r->addRoute('POST', '/users/add', 'AdminController@createUser');
         $r->addRoute('POST', '/users/{id:\d+}/delete', 'AdminController@deleteUser');
         $r->addRoute('GET', '/settings', 'AdminController@settings');
         $r->addRoute('POST', '/settings', 'AdminController@updateSettings');

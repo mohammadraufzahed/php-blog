@@ -22,13 +22,13 @@ class Management
 	/**
 	 * Posts constructor.
 	 */
-	public function __construct()
+	public function __construct(Mysql $db)
 	{
 		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
 		$this->userId = !empty($_SESSION["id"]) ? intval($_SESSION["id"]) : 0;
-		$this->db = new Mysql();
+		$this->db = $db;
 	}
 
 	/**
@@ -48,11 +48,9 @@ class Management
 
 		// Execute the statement
 		if ($this->db->execute()) {
-			header("location: /admin/posts.php?newPostStatus=1");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?newPostStatus=1');
 		} else {
-			header("location: /admin/posts.php?newPostStatus=2");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?newPostStatus=2');
 		}
 	}
 
@@ -66,11 +64,9 @@ class Management
 		$this->db->bind(":postId", $id, PDO::PARAM_INT);
 
 		if ($this->db->execute()) {
-			header("location: /admin/posts.php?deletePostStatus=1");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?deletePostStatus=1');
 		} else {
-			header("location: /admin/posts.php?deletePostStatus=2");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?deletePostStatus=2');
 		}
 	}
 
@@ -86,8 +82,7 @@ class Management
 		$result = $this->db->fetch();
 
 		if ($result === false) {
-			header("location: /admin/posts.php");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts');
 		}
 
 		$this->postId = $id;
@@ -112,11 +107,9 @@ class Management
 		$this->db->bind(":id", $postId, PDO::PARAM_INT);
 
 		if ($this->db->execute()) {
-			header("location: /admin/posts.php?updatePostStatus=1");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?updatePostStatus=1');
 		} else {
-			header("location: /admin/posts.php?updatePostStatus=2");
-			die();
+			\App\Helpers\Redirect::to('/admin/posts?updatePostStatus=2');
 		}
 	}
 

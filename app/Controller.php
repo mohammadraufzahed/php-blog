@@ -2,16 +2,28 @@
 
 namespace App;
 
+use App\Helpers\Url;
+use Blog\Info;
+
 abstract class Controller
 {
     protected function view(string $view, array $data = []): void
     {
-        extract($data);
-        require __DIR__ . "/../views/{$view}.php";
+        // Automatically include blog info for views that extend layouts.app
+        // Check if blog data is not already provided
+        if (!isset($data['blog'])) {
+            $data['blog'] = Container::make(Info::class);
+        }
+
+        echo Blade::render($view, $data);
     }
 
     protected function redirect(string $url, int $code = 302): void
     {
+        // If URL is relative, make it absolute preserving port
+        if (strpos($url, 'http') !== 0) {
+            $url = Url::to($url);
+        }
         header("Location: {$url}", true, $code);
         exit;
     }

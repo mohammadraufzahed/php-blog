@@ -1,5 +1,7 @@
 <?php
 
+use App\Bootstrap;
+use App\Container;
 use App\Router;
 
 // Start session
@@ -9,6 +11,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Load Composer autoloader
 require_once __DIR__ . '/vendor/autoload.php';
+
+// Bootstrap the application (register services)
+Bootstrap::boot();
 
 // Create router instance
 $router = new Router();
@@ -47,8 +52,8 @@ switch ($result['status']) {
             break;
         }
         
-        // Instantiate controller
-        $controller = new $fullControllerClass();
+        // Instantiate controller using container (enables dependency injection)
+        $controller = Container::make($fullControllerClass);
         
         // Check if method exists
         if (!method_exists($controller, $method)) {

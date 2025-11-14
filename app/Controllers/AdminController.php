@@ -2,159 +2,234 @@
 
 namespace App\Controllers;
 
+use App\Container;
 use App\Controller;
+use Account\Register;
+use Blog\Settings;
+use Database\Mysql;
 use Permission\AdminPermission;
+use Post\Fetch;
+use Post\Management;
+use PDO;
 
 class AdminController extends Controller
 {
-    public function index(): void
+    private function checkPermission(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        $permission = new AdminPermission();
+        $permission = Container::make(AdminPermission::class);
         $permission->permissionAdmin();
+    }
 
-        require __DIR__ . '/../../admin/index.php';
+    public function index(): void
+    {
+        $this->checkPermission();
+
+        // Get database from container
+        $db = Container::get(Mysql::class);
+        $db->query("SELECT `id` FROM `posts`");
+        $db->execute();
+        $totalPosts = $db->rowCount();
+
+        $db->query("SELECT `id` FROM `users`");
+        $db->execute();
+        $totalUsers = $db->rowCount();
+
+        $this->view('admin.index', [
+            'totalPosts' => $totalPosts,
+            'totalUsers' => $totalUsers
+        ]);
     }
 
     public function posts(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->checkPermission();
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
+        $posts = Container::make(Fetch::class);
 
-        require __DIR__ . '/../../admin/posts.php';
+        $this->view('admin.posts.index', [
+            'posts' => $posts->posts
+        ]);
     }
 
     public function newPost(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        require __DIR__ . '/../../admin/posts/new.php';
+        $this->checkPermission();
+        $this->view('admin.posts.new');
     }
 
     public function createPost(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        if (isset($_POST["save"])) {
+            $postTitle = trim($_POST["postName"] ?? '');
+            $postBody = trim($_POST["postBody"] ?? '');
+            $isPublished = trim($_POST["publishIt"] ?? 'N');
+
+            $postManager = Container::make(Management::class);
+            $postManager->addPost($postTitle, $postBody, $isPublished);
+            // addPost redirects internally, so we don't need to do anything here
+            return;
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        // Handle POST request - redirect to posts list after creation
-        $this->redirect('/admin/posts');
+        $this->redirect('/admin/posts/new');
     }
 
     public function editPost(array $vars): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        $postId = intval($vars['id'] ?? 0);
+        
+        if ($postId <= 0) {
+            $this->redirect('/admin/posts');
+            return;
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
+        $postManager = Container::make(Management::class);
+        $postManager->getPost($postId);
 
-        $_GET['id'] = $vars['id'] ?? 0;
-        require __DIR__ . '/../../admin/posts/edit.php';
+        // Convert to object for template
+        $post = (object)[
+            'id' => $postManager->postId,
+            'title' => $postManager->postTitle,
+            'body' => $postManager->postBody,
+            'published' => $postManager->isPublished
+        ];
+
+        $this->view('admin.posts.edit', [
+            'post' => $post
+        ]);
     }
 
     public function updatePost(array $vars): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        if (isset($_POST["saveId"])) {
+            $postTitle = trim($_POST["postName"] ?? '');
+            $postBody = trim($_POST["postBody"] ?? '');
+            $isPublished = trim($_POST["publishIt"] ?? 'N');
+            $postId = intval($_POST["saveId"] ?? 0);
+
+            if ($postId > 0) {
+                $postManager = Container::make(Management::class);
+                $postManager->updatePost($postTitle, $postBody, $isPublished, $postId);
+                // updatePost redirects internally
+                return;
+            }
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        // Handle POST request - redirect to posts list after update
         $this->redirect('/admin/posts');
     }
 
     public function deletePost(array $vars): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        $postId = intval($vars['id'] ?? 0);
+        
+        if ($postId <= 0) {
+            $this->redirect('/admin/posts');
+            return;
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        $_GET['id'] = $vars['id'] ?? 0;
-        require __DIR__ . '/../../admin/posts/delete.php';
+        $postManager = Container::make(Management::class);
+        $postManager->deletePost($postId);
+        // deletePost redirects internally
     }
 
     public function users(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->checkPermission();
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
+        $db = Container::get(Mysql::class);
+        $db->query("SELECT `id`, `username`, `email` FROM `users`");
+        $db->execute();
+        $users = $db->fetchAll();
 
-        require __DIR__ . '/../../admin/users.php';
+        $this->view('admin.users.index', [
+            'users' => $users
+        ]);
     }
 
     public function addUser(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+        $this->view('admin.users.add');
+    }
+
+    public function createUser(): void
+    {
+        $this->checkPermission();
+
+        if (isset($_POST["register"])) {
+            $username = $_POST["username"] ?? '';
+            $password = $_POST["password"] ?? '';
+            $passwordConfirm = $_POST["passwordConfirm"] ?? '';
+
+            $register = new Register($username, $password, $passwordConfirm, "/admin/users/add");
+            if ($register->registerUser()) {
+                $this->redirect('/admin/users/add?status=1');
+                return;
+            }
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        require __DIR__ . '/../../admin/users/addUser.php';
+        $this->redirect('/admin/users/add');
     }
 
     public function deleteUser(array $vars): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        $userID = intval($vars['id'] ?? 0);
+        
+        if ($userID <= 0) {
+            $this->redirect('/admin/users?deleteStatus=2');
+            return;
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
+        $db = Container::get(Mysql::class);
+        $db->query("DELETE FROM `users` WHERE `id`=:id AND `is_admin`='N'");
+        $db->bind(":id", $userID, PDO::PARAM_INT);
 
-        $_GET['id'] = $vars['id'] ?? 0;
-        require __DIR__ . '/../../admin/users/deleteUser.php';
+        if ($db->execute()) {
+            $this->redirect('/admin/users?deleteStatus=1');
+        } else {
+            $this->redirect('/admin/users?deleteStatus=2');
+        }
     }
 
     public function settings(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->checkPermission();
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
+        $settings = Container::make(Settings::class);
 
-        require __DIR__ . '/../../admin/settings.php';
+        $this->view('admin.settings', [
+            'settings' => $settings
+        ]);
     }
 
     public function updateSettings(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        $this->checkPermission();
+
+        if (isset($_POST["update"])) {
+            $blogTitle = $_POST["blogName"] ?? '';
+            $blogAuthor = $_POST["authorName"] ?? '';
+            $blogAuthorInfo = $_POST["authorInfo"] ?? '';
+
+            $settings = Container::make(Settings::class);
+            $settings->updateSettings($blogTitle, $blogAuthor, $blogAuthorInfo);
+            // updateSettings redirects internally
+            return;
         }
 
-        $permission = new AdminPermission();
-        $permission->permissionAdmin();
-
-        // Handle POST request - redirect back to settings
         $this->redirect('/admin/settings');
     }
 }
-

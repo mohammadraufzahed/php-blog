@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Container;
 use App\Controller;
 use Post\Fetch;
 
@@ -19,16 +20,19 @@ class PostController extends Controller
             $this->redirect('/');
         }
 
-        $postManager = new Fetch();
+        $postManager = Container::make(Fetch::class);
         $post = $postManager->fetchPost($postId);
 
         if (!$post) {
             $this->redirect('/');
         }
 
-        // Set GET parameter for compatibility with existing post.php
-        $_GET['id'] = $postId;
-        require __DIR__ . '/../../post.php';
+        // Add id to post object for template
+        $post->id = $postId;
+
+        $this->view('post.show', [
+            'post' => $post
+        ]);
     }
 }
 

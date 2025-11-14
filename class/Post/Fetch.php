@@ -18,9 +18,9 @@ class Fetch
 	/**
 	 * Post constructor.
 	 */
-	public function __construct()
+	public function __construct(Mysql $db)
 	{
-		$this->db = new Mysql();
+		$this->db = $db;
 		$this->fetchPosts();
 	}
 

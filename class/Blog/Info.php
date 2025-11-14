@@ -15,9 +15,8 @@ class Info
 	public string $blogAuthor;
 	public string $blogAuthorInfo;
 
-	public function __construct()
+	public function __construct(Mysql $db)
 	{
-		$db = new Mysql();
 		$db->query("SELECT `blogTitle`, `blogAuthor`, `blogAuthorInfo` FROM `settings`");
 		$db->execute();
 		$result = $db->fetch();

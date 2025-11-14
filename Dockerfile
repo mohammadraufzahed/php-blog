@@ -39,7 +39,10 @@ RUN composer install
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html \
+    && mkdir -p /var/www/html/storage/cache/views \
+    && chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage
 
 # Copy startup script
 COPY scripts/start.sh /start.sh

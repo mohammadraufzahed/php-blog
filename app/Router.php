@@ -26,6 +26,11 @@ class Router
         }
         $uri = rawurldecode($uri);
 
+        // Normalize trailing slashes (remove trailing slash except for root)
+        if ($uri !== '/' && substr($uri, -1) === '/') {
+            $uri = rtrim($uri, '/');
+        }
+
         $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
 
         switch ($routeInfo[0]) {

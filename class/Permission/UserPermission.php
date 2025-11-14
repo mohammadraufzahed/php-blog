@@ -27,8 +27,7 @@ class UserPermission
 	public function permissionUser()
 	{
 		if ($this->isLogged) {
-			header("location: /");
-			die();
+			\App\Helpers\Redirect::to('/');
 		}
 	}
 }

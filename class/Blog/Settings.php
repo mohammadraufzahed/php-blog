@@ -21,10 +21,9 @@ class Settings
 	/**
 	 * Settings constructor.
 	 */
-	public function __construct()
+	public function __construct(Mysql $db)
 	{
-		// Create database connection
-		$this->db = new Mysql();
+		$this->db = $db;
 		// Get blog settings from database
 		$this->db->query("SELECT `blogTitle`,`blogAuthor`,`blogAuthorInfo` FROM `settings`");
 		$this->db->execute();
@@ -50,11 +49,9 @@ class Settings
 		$this->db->bind(":blogAuthorInfo", $blogAuthorInfo, PDO::PARAM_STR);
 		// Execute the statement
 		if ($this->db->execute()) {
-			header("location: /admin/settings.php?updateStatus=1");
-			die();
+			\App\Helpers\Redirect::to('/admin/settings?updateStatus=1');
 		} else {
-			header("location: /admin/settings.php?updateStatus=2");
-			die();
+			\App\Helpers\Redirect::to('/admin/settings?updateStatus=2');
 		}
 
 	}
