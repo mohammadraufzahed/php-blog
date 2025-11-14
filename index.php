@@ -1,58 +1,73 @@
 <?php
+
+use App\Router;
+
+// Start session
 if (session_status() === PHP_SESSION_NONE) {
-	session_start();
+    session_start();
 }
 
-require_once __DIR__ . "/vendor/autoload.php";
+// Load Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
 
+// Create router instance
+$router = new Router();
 
-use Blog\Info;
-use Post\Fetch;
+// Get HTTP method and URI
+$httpMethod = $_SERVER['REQUEST_METHOD'];
+$uri = $_SERVER['REQUEST_URI'];
 
-$blog = new Info();
-$postManager = new Fetch();
-?>
-<!doctype html>
-<html lang="en">
+// Dispatch the route
+$result = $router->dispatch($httpMethod, $uri);
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Load the css-->
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
-    <title><?php echo $blog->blogTitle; ?></title>
-</head>
-
-<body class="bg-light">
-<?php include("nav.php"); ?>
-<!--Body start-->
-<div class="container-fluid h-100">
-    <div class="row h-100 mt-2">
-        <div class="col-lg-8">
-			<?php $postManager->printPosts(); ?>
-        </div>
-        <!--Right-->
-        <div class="col-lg-4">
-            <div class="h-auto w-100">
-                <div class="card bg-dark text-white mb-3">
-                    <img class="card-img-top" src="static/img/profile.jpg" alt="Profile Image">
-                    <div class="card-body text-center">
-                        <h5 class="card-title"><?php echo $blog->blogAuthor; ?></h5>
-                        <p class="card-text"><?php echo $blog->blogAuthorInfo ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Body end-->
-<!--Load The js files-->
-<script src="static/js/jquery.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-</body>
-
-</html>
+// Handle the response
+switch ($result['status']) {
+    case 404:
+        http_response_code(404);
+        echo "<!DOCTYPE html><html><head><title>404 - Not Found</title></head><body><h1>404 - Page Not Found</h1></body></html>";
+        break;
+    
+    case 405:
+        http_response_code(405);
+        echo "<!DOCTYPE html><html><head><title>405 - Method Not Allowed</title></head><body><h1>405 - Method Not Allowed</h1></body></html>";
+        break;
+    
+    case 200:
+        // Parse handler (format: "Controller@method")
+        $handler = $result['handler'];
+        [$controllerClass, $method] = explode('@', $handler);
+        
+        // Build full controller class name
+        $fullControllerClass = "App\\Controllers\\{$controllerClass}";
+        
+        // Check if controller exists
+        if (!class_exists($fullControllerClass)) {
+            http_response_code(500);
+            echo "<!DOCTYPE html><html><head><title>500 - Server Error</title></head><body><h1>500 - Controller not found</h1></body></html>";
+            break;
+        }
+        
+        // Instantiate controller
+        $controller = new $fullControllerClass();
+        
+        // Check if method exists
+        if (!method_exists($controller, $method)) {
+            http_response_code(500);
+            echo "<!DOCTYPE html><html><head><title>500 - Server Error</title></head><body><h1>500 - Method not found</h1></body></html>";
+            break;
+        }
+        
+        // Call the controller method
+        $vars = $result['vars'] ?? [];
+        if (empty($vars)) {
+            $controller->$method();
+        } else {
+            $controller->$method($vars);
+        }
+        break;
+    
+    default:
+        http_response_code(500);
+        echo "<!DOCTYPE html><html><head><title>500 - Server Error</title></head><body><h1>500 - Internal Server Error</h1></body></html>";
+        break;
+}

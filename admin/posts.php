@@ -48,7 +48,7 @@ $postManager = new Management();
 
         <div class="container-fluid text-center">
             <div class="d-flex w-100 justify-content-end">
-                <a href="/admin/posts/new.php">
+                <a href="/admin/posts/new">
                     <button class="btn btn-primary mt-3 mb-3">Add Post</button>
                 </a>
             </div>
@@ -81,15 +81,15 @@ $postManager = new Management();
                         <th scope="row"><?php echo $value->id; ?></th>
                         <td><?php echo $value->title; ?></td>
                         <td>
-                            <a href="/admin/posts/edit.php?id=<?php echo $value->id; ?>">
+                            <a href="/admin/posts/<?php echo $value->id; ?>/edit">
                                 <button class="btn btn-success me-3">Edit</button>
                             </a>
-                            <a href="/post.php?id=<?php echo $value->id; ?>" target="_blank">
+                            <a href="/post/<?php echo $value->id; ?>" target="_blank">
                                 <button class="btn btn-primary me-3">View</button>
                             </a>
-                            <a href="/admin/posts/delete.php?id=<?php echo $value->id; ?>">
-                                <button class="btn btn-danger">Delete</button>
-                            </a>
+                            <form method="POST" action="/admin/posts/<?php echo $value->id; ?>/delete" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
 				<?php }

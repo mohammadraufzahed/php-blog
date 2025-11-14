@@ -9,7 +9,7 @@ $blog = new Info();
 <!--Navabr Start-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a href="index.php" class="navbar-brand"><?php echo $blog->blogTitle; ?></a>
+        <a href="/" class="navbar-brand"><?php echo $blog->blogTitle; ?></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span>
@@ -21,12 +21,12 @@ $blog = new Info();
                 if (empty($_SESSION["isLogged"])) {
                     ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
+                        <a class="nav-link" href="/register">Register</a>
                     </li>
                     <li class="nav-item">
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <?php
                 } elseif (!empty($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 'Y') {
@@ -38,7 +38,7 @@ $blog = new Info();
                 }
                 if (!empty($_SESSION['isLogged'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 <?php } ?>
             </ul>
